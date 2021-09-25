@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=divice-width, initial-scale=1.0">
+
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+
+
+
+
+
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- <div id="quotes"></div>
+        <div id="author"></div>
+        <button id="newQ">new Quotes</button>
+        <button id="tweetMe">Tweet</button> -->
+
+
+        <div class="container">
+            <div class="inner">
+                <div class="box">
+                    <p class="number">
+                        <img src="images/twitter-logo-4.png" id="tweetMe" width="150px" data-toggle="tooltip" title="Tweet Quote">
+                        <!-- <button id="tweetMe">Tweet</button> -->
+                    </p>
+
+                    <div class="text">
+                        <i class="start-quote fas fa-quote-left"></i>
+                        <p id="quotes" class="quotes"></p>
+                        <p id="author" class="author"></p>
+                    </div>
+
+                    <label class="button">
+                        <p id="newQ">new Quotes</p>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const quotes = document.getElementById("quotes");
+            const author = document.getElementById("author");
+            const newQ = document.getElementById('newQ');
+
+            const tweetNow = () => {
+               let tweetPost=  `https://twitter.com/intent/tweet?text=${quotesData.text}
+                                                                          ${"~" + quotesData.author}`;
+               window.open(tweetPost);
+            }
+            const tweetMe = document.getElementById('tweetMe');
+            let realData = "";
+            let quotesData = "";
+            const getNewQuotes = () => {
+                let rnum = Math.floor((Math.random() * 12) + 1);
+                // console.log(rnum);
+                // console.log(realData[rnum].author);
+                quotesData = realData[rnum];
+                quotes.innerText = `${quotesData.text}`
+                quotesData.author == null
+                ? (author.innerText = "UnKnown")
+                : (author.innerText = `${quotesData.author}`);
+            };
+            const getQuotes = async () => {
+                const api = "https://type.fit/api/quotes";
+                try{
+                     let data = await fetch(api);
+                     realData = await data.json();
+                     getNewQuotes();
+                    //  console.log(realData[0].text);
+                }catch (error) {}
+            }
+
+
+       tweetMe.addEventListener("click",tweetNow);     
+       newQ.addEventListener('click',getNewQuotes);
+
+            getQuotes();
+
+            $(document).ready(function(){
+             $('[data-toggle="tooltip"]').tooltip();   
+            });
+        </script>
+    </body>
+</html>
